@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Scheduler POC</title>
+<style>
+.ok { background-color:green; }
+.notok { background-color: gray; }
+table.schedule { cursor: default; -webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none; }
+</style>
+<script type="text/javascript">
+var down = false;
+var dragMode = null;
+
+function mouseDown(elt) {
+down = true;
+if(elt.className == "notok") {
+	dragMode = "set_ok";
+} else {
+	dragMode = "set_notok";
+}
+mouseHover(elt);
+}
+
+function mouseHover(elt) {
+if(down) {
+	if(dragMode == "set_ok") {
+		elt.className = "ok";
+	} else if(dragMode == "set_notok") {
+		elt.className = "notok";
+	} else {
+		alert("dragMode null: " + elt);
+	}
+}
+}
+
+function create_data() {
+	var data = {};
+	var t = document.getElementById('sched_table');
+
+	for (var i = 0, row; row = t.rows[i]; ++i) {
+		for (var j = 0, cell; cell = row.cells[j]; ++j) {
+			if (cell.id == "") {
+				continue;
+			}
+			data[cell.id] = cell.className == "ok";
+		}
+	}
+
+	console.log(JSON.stringify(data));
+	document.getElementById('hidden_sched').value = JSON.stringify(data);
+}
+
+</script>
+</head>
+<body onmouseup="down=false; dragMode=null;">
+<form method="post">
+<table class="schedule" id="sched_table">
+	<thead>
+		<tr>
+				<!--<td>Monday, Sept 23</td><td>Tuesday, Sept 24</td>-->
+				{% for day in dates %}
+					<td>{{ day }}</td>
+				{% endfor %}
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for ts in timeslots %}
+		<tr>
+			{% for day in dates %}
+				{% if shifts[day][ts] %}
+				<td onmousedown="mouseDown(this);" onmouseover="mouseHover(this);"
+					class="{{ 'ok' if user.get_available(day, ts) else 'notok' }}"
+					id="{{ '%s|%s'|format(day, ts) }}" >
+				{{ ts }}
+				</td>
+				{% else %}
+				<td></td>
+				{% endif %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+
+	</tbody>
+</table>
+<br />Uniqname: {{ uniqname }}<br />
+<input type="hidden" name="schedule_data" id="hidden_sched" value="" />
+<input type="submit" value="submit" onclick="create_data();"/>
+</form>
+</body>
