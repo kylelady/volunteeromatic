@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+import collections
+
+# Establishes order of timeslots
+timeslots = [
+    '9:00 AM',
+    '9:30 AM',
+    '10:00 AM',
+    '10:30 AM',
+]
+dates = [
+    'Sunday, Sept 22',
+    'Monday, Sept 23',
+    'Tuesday, Sept 24',
+    ]
+
+# Dates and required timeslots
+shifts = {
+    'Sunday, Sept 22': collections.defaultdict(lambda : False),
+    'Monday, Sept 23': collections.defaultdict(lambda : True),
+    'Tuesday, Sept 24': collections.defaultdict(lambda : True)
+}
+
+shifts['Sunday, Sept 22']['9:00 AM'] = True
+shifts['Sunday, Sept 22']['9:30 AM'] = True
+
+local_data = '/tmp/volunteers'
