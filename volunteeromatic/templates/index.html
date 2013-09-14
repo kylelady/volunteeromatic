@@ -87,6 +87,17 @@ function create_data() {
 
 	</tbody>
 </table>
+<div id="tasks">
+Please select the types of tasks you're willing to do:
+<table>
+	{% for task in tasks %}
+	<tr>
+		<td><input name="{{ task.id }}" type="checkbox" value="on" id="check-{{ task.id }}" {{ 'checked' if user.get_task_status(task.id) else '' }} /></td>
+		<td>{{ task.name }}</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
 <br />Uniqname: {{ uniqname }}<br />
 <input type="hidden" name="schedule_data" id="hidden_sched" value="" />
 <input type="submit" value="submit" onclick="create_data();"/>

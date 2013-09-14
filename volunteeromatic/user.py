@@ -14,6 +14,9 @@ class BadSlotKey(KeyError):
 class BadDateKey(KeyError):
     pass
 
+class BadTaskId(KeyError):
+    pass
+
 class User(object):
     def __init__(self, username):
         self._username = username
@@ -23,15 +26,36 @@ class User(object):
     def __enter__(self):
         try:
             with open(self._filename()) as f:
-                self._available = json.load(f)
+                data = json.load(f)
+                self._available = data['available']
+                self._tasks = data['tasks']
         except IOError:
             self._create_account()
             self._initialize_availability()
+            self._initialize_tasks()
         return self
 
     def __exit__(self, type, value, exception):
         with open(self._filename(), 'w') as f:
-            json.dump(self._available, f)
+            data = {
+                    'available': self._available,
+                    'tasks': self._tasks
+                }
+            json.dump(data, f)
+
+    def get_task_status(self, task_id):
+        if task_id not in self._tasks:
+            raise BadTaskID('task id: %s' % task_id)
+
+        return self._tasks[task_id]
+
+    def set_task_status(self, task_id, value):
+        if task_id not in self._tasks:
+            raise BadTaskID('task id: %s' % task_id)
+        if value not in (True, False):
+            raise RuntimeError('value not in {T,F}')
+
+        self._tasks[task_id] = value
 
     def get_available(self, day, shift):
         if day not in local_settings.shifts:
@@ -79,5 +103,11 @@ class User(object):
                         self._available[day][shift] = False
                     except KeyError:
                         self._available[day] = {shift: False}
+
+    def _initialize_tasks(self):
+        self._tasks = {}
+
+        for task in local_settings.tasks:
+            self._tasks[task['id']] = True
 
 

@@ -19,6 +19,10 @@ def process_avail(user, avail):
         d,t = shift.split('|')
         user.set_available(d, t, avail[shift])
 
+def process_tasks(user, all_tasks):
+    for task in all_tasks:
+        user.set_task_status(task['id'], request.form.get(task['id']) == 'on')
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     uniqname = request.headers.get('X_REMOTE_USER')
@@ -35,6 +39,7 @@ def index():
                 timeslots=local_settings.timeslots,
                 dates=local_settings.dates,
                 shifts=local_settings.shifts,
+                tasks=local_settings.tasks,
                 user=u)
 
     elif request.method == 'POST':
@@ -47,6 +52,7 @@ def index():
             if not user_avail:
                 abort(400)
             process_avail(u, user_avail)
+            process_tasks(u, local_settings.tasks)
 
         # sloppy but don't care
         with User(uniqname) as u:
@@ -55,6 +61,7 @@ def index():
                 timeslots=local_settings.timeslots,
                 dates=local_settings.dates,
                 shifts=local_settings.shifts,
+                tasks=local_settings.tasks,
                 user=u)
     else:
         abort(500)
