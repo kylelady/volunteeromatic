@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Scheduler POC</title>
+<title>Career Fair 2013 Volunteer Sign-Up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <style>
 .ok { background-color:green; }
 .notok { background-color: gray; }
@@ -58,6 +60,17 @@ function create_data() {
 </script>
 </head>
 <body onmouseup="down=false; dragMode=null;">
+<div class="container-narrow">
+
+<div class="masthead">
+	<ul class="nav nav-pills pull-right">
+		<li><a href="http://umcareerfair.org/">Home</a></li>
+		<li class="active">Sign Up</li>
+	</ul>
+	<h3 class="muted">CF13 Volunteers</h3>
+</div>
+<hr>
+
 <form method="post">
 <table class="schedule" id="sched_table">
 	<thead>
@@ -103,4 +116,5 @@ Please select the types of tasks you're willing to do:
 <input type="hidden" name="schedule_data" id="hidden_sched" value="" />
 <input type="submit" value="submit" onclick="create_data();"/>
 </form>
+</div>
 </body>
