@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Scheduler POC</title>
@@ -75,7 +76,7 @@ function create_data() {
 				{% if shifts[day][ts] %}
 				<td onmousedown="mouseDown(this);" onmouseover="mouseHover(this);"
 					class="{{ 'ok' if user.get_available(day, ts) else 'notok' }}"
-					id="{{ '%s|%s'|format(day, ts) }}" >
+					id="{{ '%s|%s'|format(day, ts)|replace(' ','_') }}" >
 				{{ ts }}
 				</td>
 				{% else %}
@@ -93,7 +94,7 @@ Please select the types of tasks you're willing to do:
 	{% for task in tasks %}
 	<tr>
 		<td><input name="{{ task.id }}" type="checkbox" value="on" id="check-{{ task.id }}" {{ 'checked' if user.get_task_status(task.id) else '' }} /></td>
-		<td>{{ task.name }}</td>
+		<td><label for="check-{{ task.id }}" >{{ task.name }}</label></td>
 	</tr>
 	{% endfor %}
 </table>

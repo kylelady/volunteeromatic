@@ -16,7 +16,9 @@ app.debug = True
 
 def process_avail(user, avail):
     for shift in avail:
-        d,t = shift.split('|')
+        d_,t_ = shift.split('|')
+        d = d_.replace('_', ' ')
+        t = t_.replace('_', ' ')
         user.set_available(d, t, avail[shift])
 
 def process_tasks(user, all_tasks):
