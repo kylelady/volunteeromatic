@@ -47,7 +47,7 @@ class User(object):
         if task_id not in self._tasks:
             raise BadTaskID('task id: %s' % task_id)
 
-        return self._tasks[task_id]
+        return self._tasks.get(task_id, True)
 
     def set_task_status(self, task_id, value):
         if task_id not in self._tasks:
@@ -65,7 +65,7 @@ class User(object):
         if not local_settings.shifts[day][shift]:
             raise InvalidSlot('day: %s  slot: %s' % (day, shift))
 
-        return self._available[day][shift]
+        return self._available.get(day, {}).get(shift, False)
 
     def set_available(self, day, shift, value):
         if day not in local_settings.shifts:
