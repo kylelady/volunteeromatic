@@ -19,9 +19,10 @@ body {
       }
 
 
-.ok { background-color:green; }
-.notok { background-color: gray; }
+.ok { background-color: #484; color: white;}
+.notok { background-color: #CCC; }
 table.schedule { 
+font-size: 1.1em;
 cursor: default; 
 -webkit-touch-callout: none;
 -webkit-user-select: none;
@@ -31,8 +32,11 @@ cursor: default;
 user-select: none; 
 margin-left: auto;
 margin-right: auto;}
+table.schedule tr { height: 1.4em; }
+table.schedule td { border: 2px solid white; text-align:center; font-weight:bold;}
+table.schedule thead td { width: 6em; }
 
-table.tasks > tbody > tr > td {margin-left:auto; margin-right:auto; vertical-align:middle}
+table.tasks td {margin-left:auto; margin-right:auto; vertical-align:middle}
 table.tasks input[type="checkbox"] {margin-bottom:0.5em;}
 div.submit {text-align:center;}
 </style>
@@ -94,11 +98,13 @@ function create_data() {
 <div class="masthead">
 	<ul class="nav nav-pills pull-right">
 		<li><a href="http://umcareerfair.org/">Home</a></li>
-		<li class="active"><a href="#">Sign Up</a></li>
+		<li class="active"><a href="#">Volunteer Sign Up</a></li>
 	</ul>
 	<h3 class="muted">CF13 Volunteers</h3>
 </div>
 <hr>
+
+<h4 id="flash" style="color: green; text-align:center">&nbsp;{{ flash if flash else '' }}&nbsp;</h4>
 
 <h4 style="text-align:center">Please select the shifts you&apos;re willing to work:</h5>
 <form method="post">
@@ -176,4 +182,8 @@ function create_data() {
     <script src="../assets/js/bootstrap-carousel.js"></script>
     <script src="../assets/js/bootstrap-typeahead.js"></script>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	$("#flash").delay(1000).fadeTo(1000,0);
+</script>
 </body>

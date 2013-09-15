@@ -59,6 +59,7 @@ def index():
         # sloppy but don't care
         with User(uniqname) as u:
             return render_template('index.html',
+                flash='Thanks!',
                 uniqname=uniqname,
                 timeslots=local_settings.timeslots,
                 dates=local_settings.dates,
