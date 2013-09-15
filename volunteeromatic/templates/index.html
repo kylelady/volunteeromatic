@@ -36,6 +36,7 @@ table.schedule tr { height: 1.4em; }
 table.schedule td { border: 2px solid white; text-align:center; font-weight:bold;}
 table.schedule thead td { width: 6em; }
 
+div#tasks { padding-left: 20%; padding-right: 20%; }
 table.tasks td {margin-left:auto; margin-right:auto; vertical-align:middle}
 table.tasks input[type="checkbox"] {margin-bottom:0.5em;}
 div.submit {text-align:center;}
@@ -139,8 +140,8 @@ function create_data() {
 </table>
 
 <br />
-<div id="tasks">
 <h4 style="text-align:center">Please select the types of tasks you&apos;re willing to perform:</h5>
+<div id="tasks">
 <table class="tasks table">
 	{% for task in tasks %}
 	<tr>
@@ -153,7 +154,7 @@ function create_data() {
 
 <br />
 <input type="hidden" name="schedule_data" id="hidden_sched" value="" />
-<div class="submit"><input type="submit" value="submit" onclick="create_data();"/></div>
+<div class="submit"><input type="submit" value="Submit" onclick="create_data();"/></div>
 </form>
 
 <hr />
