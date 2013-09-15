@@ -4,10 +4,35 @@ import collections
 
 # Establishes order of timeslots
 timeslots = [
+    '7:00 AM',
+    '7:30 AM',
+    '8:00 AM',
+    '8:30 AM',
     '9:00 AM',
     '9:30 AM',
     '10:00 AM',
     '10:30 AM',
+    '11:00 AM',
+    '11:30 AM',
+    '12:00 PM',
+    '12:30 PM',
+    '1:00 PM',
+    '1:30 PM',
+    '2:00 PM',
+    '2:30 PM',
+    '3:00 PM',
+    '3:30 PM',
+    '4:00 PM',
+    '4:30 PM',
+    '5:00 PM',
+    '5:30 PM',
+    '6:00 PM',
+    '6:30 PM',
+    '7:00 PM',
+    '7:30 PM',
+    '8:00 PM',
+    '8:30 PM',
+    '9:00 PM',
 ]
 dates = [
     'Sunday, Sept 22',
@@ -17,12 +42,34 @@ dates = [
 
 # Dates and required timeslots
 shifts = {
-    'Sunday, Sept 22': collections.defaultdict(lambda : False),
+    'Sunday, Sept 22': collections.defaultdict(lambda : True),
     'Monday, Sept 23': collections.defaultdict(lambda : True),
     'Tuesday, Sept 24': collections.defaultdict(lambda : True)
 }
 
-shifts['Sunday, Sept 22']['9:00 AM'] = True
-shifts['Sunday, Sept 22']['9:30 AM'] = True
+
+shifts['Sunday, Sept 22']['7:00 AM'] = False
+shifts['Sunday, Sept 22']['7:30 AM'] = False
+shifts['Sunday, Sept 22']['8:00 AM'] = False
+shifts['Sunday, Sept 22']['8:30 AM'] = False
+shifts['Sunday, Sept 22']['9:00 AM'] = False
+shifts['Sunday, Sept 22']['9:30 AM'] = False
+shifts['Sunday, Sept 22']['10:00 AM'] = False
+shifts['Sunday, Sept 22']['10:30 AM'] = False
+shifts['Sunday, Sept 22']['11:00 AM'] = False
+shifts['Sunday, Sept 22']['11:30 AM'] = False
+
+shifts['Tuesday, Sept 24']['7:30 PM'] = False
+shifts['Tuesday, Sept 24']['8:00 PM'] = False
+shifts['Tuesday, Sept 24']['8:30 PM'] = False
+shifts['Tuesday, Sept 24']['9:00 PM'] = False
+
+tasks = [{'id': t[0], 'name': t[1] } for t in [
+            ('moving', 'Moving tables, chairs, etc.'),
+            ('social', 'Talking with recruiters or students'),
+            ('setup', 'Staff lunch tables, hang signs, etc.')
+            ]
+        ]
+
 
 local_data = '/tmp/volunteers'
