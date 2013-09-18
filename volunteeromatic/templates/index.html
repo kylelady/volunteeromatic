@@ -100,6 +100,7 @@ function create_data() {
 	<ul class="nav nav-pills pull-right">
 		<li><a href="http://umcareerfair.org/">Home</a></li>
 		<li class="active"><a href="#">Volunteer Sign Up</a></li>
+		<li><a href="https://weblogin.umich.edu/cgi-bin/logout?https://weblogin.umich.edu/">Sign Out</a></li>
 	</ul>
 	<h3 class="muted">CF13 Volunteers</h3>
 </div>
@@ -107,7 +108,13 @@ function create_data() {
 
 <h4 id="flash" style="color: green; text-align:center">&nbsp;{{ flash if flash else '' }}&nbsp;</h4>
 
-<h4 style="text-align:center">Please select the shifts you&apos;re willing to work:</h5>
+{% if flash %}
+<script type="text/javascript">
+alert("Submission Received!\n\nReturn here to update your availability up until the time you get an email with your assigned times.");
+</script>
+{% endif %}
+
+<h4 style="text-align:center">Please select the shifts you&apos;d like to sign up for:</h5>
 <form method="post">
 <table class="schedule" id="sched_table">
 	<thead>
