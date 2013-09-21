@@ -32,11 +32,9 @@ def main(argv):
                             except KeyError:
                                 shifts[day] = {shift: 0}
 
-    print shifts
 
     for day in local_settings.shifts:
         print '***%s***' % day
-        print local_settings.shifts[day].items()
         for shift in [s for s in local_settings.timeslots if local_settings.shifts[day][s]]:
             print '  %s: %d' % (shift, shifts[day][shift])
 
