@@ -33,7 +33,7 @@ def main(argv):
                                 shifts[day] = {shift: 0}
 
 
-    for day in local_settings.shifts:
+    for day in local_settings.dates:
         print '***%s***' % day
         for shift in [s for s in local_settings.timeslots if local_settings.shifts[day][s]]:
             print '  %s: %d' % (shift, shifts[day][shift])
