@@ -78,6 +78,15 @@ class User(object):
         self._available[day][shift] = value
         return
 
+    def get_num_available(self):
+        n = 0
+        for day in self._available:
+            for shift in self._available[day]:
+                if self._available[day][shift]:
+                    n += 1
+        return n
+
+
     def _filename(self):
         return os.path.join(self._userpath, 'data.json')
 
